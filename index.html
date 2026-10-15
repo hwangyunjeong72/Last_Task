@@ -252,6 +252,7 @@ footer {
 .growth-progress span { display:block; height:100%; border-radius:20px; background:#FFCC78; }
 @media(max-width:600px) { .growth-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } .growth-tab { min-width:80px; } }
 
+.paper-card{background:#fffaf5;border:1px solid #e9ded4;border-radius:16px;padding:25px;margin:8px 0 20px}.paper-label{display:inline-block;background:#FFCC78;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:bold}.paper-card h3{font-size:21px;margin:12px 0}.paper-card p{margin:10px 0;color:#444}.paper-summary{font-size:14px}.paper-link{display:inline-block;margin-top:12px;background:#FFCC78;color:#222;font-weight:bold;text-decoration:none;padding:12px 20px;border-radius:10px}.paper-link:hover{background:#f7b94c}.paper-link:focus-visible{outline:3px solid #333;outline-offset:3px}.future-app{background:#fafafa;border-color:#B0B0B0}
 </style>
 </head>
 
@@ -379,7 +380,18 @@ footer {
   <section id="projects">
     <h2>03. 대표작</h2>
     <div class="content">
-      <!-- 추후 10번 논문, 13번 앱 추가 -->
+      <article class="paper-card">
+        <div class="paper-label">T10 · 연구 논문</div>
+        <h3>음악 장르와 템포에 따른 러닝 수행 차이 탐색</h3>
+        <p>7일간의 달리기 측정을 중심으로, 7가지 음악 조건에서 완주시간과 평균 페이스, 걷기 횟수 및 주관적 운동 강도를 비교한 탐색적 연구입니다.</p>
+        <p class="paper-summary">직접 측정한 자료를 분석하고, 측정 거리와 환경 차이 등 연구의 한계도 함께 검토했습니다.</p>
+        <a class="paper-link" href="./paper.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf">논문 보기 (PDF) ↗</a>
+      </article>
+      <article class="paper-card future-app">
+        <div class="paper-label">T13 · 앱 프로젝트</div>
+        <h3>13번 앱 (제작 예정)</h3>
+        <p>앱 제작을 마친 뒤 소개와 실행 링크를 추가할 예정입니다.</p>
+      </article>
     </div>
   </section>
 
