@@ -51,15 +51,28 @@ jobs:
           path: updater/output/candidates.json
           retention-days: 7
 
-      - name: 공개용 숫자 JSON만 GitHub에 반영
+      - name: 사용자 승인/거절 결과 생성
+        run: python updater/approve_candidates.py
+
+      - name: 승인 게이트 및 재현성 검사
+        run: python updater/test_approval.py
+
+      - name: 승인 결과 JSON 내려받기
+        uses: actions/upload-artifact@v4
+        with:
+          name: br-a-approved-only
+          path: updater/approved.json
+          retention-days: 30
+
+      - name: 승인된 문장 JSON과 숫자 JSON만 GitHub에 반영
         shell: bash
         run: |
-          if git diff --quiet -- updater/summary.json; then
-            echo "변경된 숫자가 없습니다. 커밋 생략."
+          if git diff --quiet -- updater/summary.json && [ -z "$(git ls-files --others --exclude-standard updater/approved.json)" ] && git diff --quiet -- updater/approved.json; then
+            echo "변경된 승인 결과 및 숫자가 없습니다. 커밋 생략."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- updater/summary.json
-          git commit -m "BR-A: refresh approved public statistics"
+          git add -- updater/summary.json updater/approved.json
+          git commit -m "BR-A: update reviewed paragraphs and numeric summary"
           git push
