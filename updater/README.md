@@ -7,6 +7,25 @@
 - `input/tasks.csv`: T01~T11 전체 11개 목록. **완료 검증 근거가 있는 T10만 완료**, 나머지 10개는 `확인 필요`입니다. 실제 완료 상태는 증빙 검토 후 직접 수정하세요.
 - `input/attendance.csv`: 2026-08-11~10-14 전체 42개 날짜. 확정 출석 41일, 10-14 미확정 1일. 입·퇴실 시각은 공개하지 않습니다.
 
+## Python 설치 없이 GitHub에서 실행하기 (권장)
+
+**교육기관 컴퓨터에는 Python을 설치할 필요가 없습니다.** PC에 Python이 없다면 다음 순서로 실행하세요.
+
+1. [Last_Task Actions](https://github.com/hwangyunjeong72/Last_Task/actions) 열기
+2. 왼쪽 목록에서 `BR-A 자동 갱신 실행` 선택
+3. 오른쪽 `Run workflow` 선택 → 브랜치 `main` 확인 → 초록색 `Run workflow` 클릭
+4. 새로 생긴 실행을 눌러 초록색 체크(성공)를 확인
+5. 화면 아래 `Artifacts`에서 `br-a-summary`를 내려받거나 `updater/summary.json` 확인
+
+GitHub 서버가 Python 3.11을 준비한 뒤 `update.py` → `test.py` 순서로 실행합니다.
+검사가 통과하고 계산 결과가 달라졌을 때만 **`updater/summary.json` 한 파일을 자동 커밋**합니다.
+기존 `index.html`, 이력서, 자기소개서, 경력기술서, 논문 파일은 수정하지 않습니다.
+이 단계는 성장 기록 화면 자체를 자동으로 바꾸지 않으며, 해당 기능은 5단계에서 연결합니다.
+
+**문제 해결:** `Run workflow`가 보이지 않으면 `main` 브랜치인지, GitHub 저장소의 Actions 사용이 허용됐는지 확인하세요.
+쓰기 권한 오류가 나타나면 저장소 `Settings → Actions → General → Workflow permissions` 설정을 확인해야 합니다.
+공개 CSV에는 민감정보를 넣지 마세요. 자동 커밋은 승인 전 문단을 게시하지 않습니다.
+
 ## 실행 (Windows 11 / PowerShell)
 1. [저장소](https://github.com/hwangyunjeong72/Last_Task)에서 `Code → Download ZIP`을 눌러 압축을 풉니다.
 2. 압축을 푼 폴더에서 `updater`에 들어갑니다.
