@@ -470,7 +470,7 @@ footer {
   // 데이터를 읽지 못해도 기존 수동 작성 페이지는 그대로 유지한다.
   const stat = (panel, index, value) => {
     const node = document.querySelectorAll('#' + panel + ' .growth-stats .growth-stat strong')[index];
-    if (node && typeof value === "string" && /^(?:\\d+(?:\\.\\d+)?)(?:일|개|%)$/.test(value)) node.textContent = value;
+    if (node && typeof value === "string" && /^(?:\d+(?:\.\d+)?)(?:일|개|%)$/.test(value)) node.textContent = value;
   };
   async function loadGrowthData() {
     let summary;
@@ -519,7 +519,7 @@ footer {
       if (data.schema_version !== 1 || data.publication_status !== 'reviewed_approved_only' || !Array.isArray(data.approved)) throw new Error('invalid approvals');
       const safe = data.approved.filter(item => item.approval_status === 'approved' &&
         ['자기조절력','대인관계력','자기동기력'].includes(item.ability) &&
-        /^\\d{4}-\\d{2}-\\d{2}$/.test(item.date) &&
+        /^\d{4}-\d{2}-\d{2}$/.test(item.date) &&
         typeof item.paragraph === 'string' && typeof item.evidence?.source === 'string');
       list.replaceChildren();
       for (const item of safe) {
