@@ -102,3 +102,28 @@ python updater/generate_candidates.py
 python updater/test_candidates.py
 ```
 
+
+## 4단계: 후보 승인/거절 (교육기관 PC에서 Python 불필요)
+
+1. [review.csv 편집 화면](https://github.com/hwangyunjeong72/Last_Task/blob/main/updater/review.csv)을 엽니다.
+2. 오른쪽 위 연필(Edit this file)을 눌러 **마지막 열인 `decision`만** 변경합니다.
+3. `pending`은 보류, `approve`는 승인, `reject`는 거절입니다. 처음에는 모두 `pending`입니다.
+4. `Commit changes`를 누릅니다. (날짜·능력·행동은 건드리지 마세요.)
+5. [Actions](https://github.com/hwangyunjeong72/Last_Task/actions) → **BR-A 자동 갱신 실행** → `Run workflow` → `main` → `Run workflow`.
+6. 초록 체크가 나오면 `Artifacts`에서 `br-a-approved-only`를 내려받아 `approved.json`을 확인합니다.
+
+예시 (어떤 후보 1개를 승인할 때 해당 행의 마지막 값만 변경):
+
+```csv
+date,ability,action,decision
+2026-08-13,대인관계력,조별활동에서 상대방 의견 경청과 조율을 연습함,approve
+```
+
+### 승인 안전장치
+- **승인한 문단만** `updater/approved.json`에 저장되고 다른 항목은 포함되지 않습니다.
+- `review.csv`에 없는 신규 후보는 승인되지 않습니다.
+- 리추얼의 날짜·능력·행동이 변경된 뒤 옛 승인 행을 재사용하면 실패하여 **다시 검토**해야 합니다.
+- `test_approval.py`가 보류·거절 제외, 승인만 포함, 근거 변경 시 거부, 반복 실행 동일 출력을 검사합니다.
+- 후보 전체 `candidates.json`은 검토용 Artifact에만 있고 GitHub 저장소에 자동 커밋되지 않습니다.
+- `approved.json`은 **공개 GitHub 저장소에 저장되지만 아직 index.html에서는 사용하지 않으므로 웹사이트 화면에 나타나지 않습니다.** 민감정보는 승인하지 마세요.
+- 승인 자체는 GitHub의 review.csv 수정으로만 가능하고, 자동 계산 프로그램은 스스로 승인 결정을 내리지 않습니다.
