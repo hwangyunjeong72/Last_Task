@@ -38,6 +38,19 @@ jobs:
           path: updater/summary.json
           retention-days: 30
 
+      - name: 능력별 근거 문단 후보 생성 (승인 전)
+        run: python updater/generate_candidates.py
+
+      - name: 후보 날짜·출처·재현성 검사
+        run: python updater/test_candidates.py
+
+      - name: 승인 전 후보 내려받기 (사이트 미게시)
+        uses: actions/upload-artifact@v4
+        with:
+          name: br-a-candidates-review
+          path: updater/output/candidates.json
+          retention-days: 7
+
       - name: 공개용 숫자 JSON만 GitHub에 반영
         shell: bash
         run: |
