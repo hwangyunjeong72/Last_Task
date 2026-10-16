@@ -127,3 +127,18 @@ date,ability,action,decision
 - 후보 전체 `candidates.json`은 검토용 Artifact에만 있고 GitHub 저장소에 자동 커밋되지 않습니다.
 - `approved.json`은 **공개 GitHub 저장소에 저장되지만 아직 index.html에서는 사용하지 않으므로 웹사이트 화면에 나타나지 않습니다.** 민감정보는 승인하지 마세요.
 - 승인 자체는 GitHub의 review.csv 수정으로만 가능하고, 자동 계산 프로그램은 스스로 승인 결정을 내리지 않습니다.
+
+## 5단계: 승인 문단 및 숫자를 기존 성장 기록 사이트에 연결
+
+1. `updater/input/ritual.csv`, `tasks.csv`, `attendance.csv`를 실제 최신 기록으로 수정하되 개인정보는 제거합니다.
+2. `updater/review.csv`에서 게시할 항목의 `decision`을 `approve`로 변경하고 **Commit changes**를 누릅니다. 이 과정에서 날짜·능력·행동을 수정하면 일치 검사가 실패합니다.
+3. [Actions 페이지](https://github.com/hwangyunjeong72/Last_Task/actions) → `BR-A 자동 갱신 실행` → `Run workflow` → `main` → `Run workflow`.
+4. 초록색 체크가 뜨면 [포트폴리오의 성장 기록](https://hwangyunjeong72.github.io/Last_Task/#growth)을 새로고침합니다(`Ctrl+F5`).
+5. **리추얼 탭**에는 자동 계산된 숫자와 '자동 갱신 · 내가 승인한 성장 문단'이 표시됩니다. **과제·출석 탭**에도 집계 숫자가 적용됩니다.
+
+사이트는 `./updater/summary.json` 및 `./updater/approved.json`만 읽습니다. 승인 전 후보(`candidates.json`)는 참조하지 않습니다. 브라우저는 승인된 문장을 `textContent`로 표시하므로 HTML로 실행하지 않습니다. 승인 항목이 0개라면 '아직 승인된 문단이 없습니다'라고 표시합니다.
+
+**중요한 구분:** 기존에 사람이 직접 작성한 성장 일화는 '기존 성장 기록 (수동 작성)'으로 그대로 유지됩니다. 5단계 자동 갱신의 **새 문단 영역에는 승인된 문단만** 표시됩니다. 자동 집계를 못 읽으면 기존 값이 남아 있으며 화면이 멈추지 않습니다. 출석의 과거 월별 고정 표는 자동 집계가 로드되면 숨겨 서로 다른 시점의 숫자가 충돌하지 않게 했습니다.
+
+검사: `test_site.py`가 JSON 참조, 승인 상태, 데이터 구조, 미승인 후보 미참조를 확인합니다. Actions가 이 검사를 통과해야 숫자와 승인 JSON만 커밋할 수 있습니다. 실제 Pages 배포는 GitHub Pages 설정과 배포 지연의 영향을 받으므로 확인이 필요합니다.
+
