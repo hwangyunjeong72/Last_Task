@@ -1,0 +1,8 @@
+# BR-A: never publish private source records or local outputs
+updater/private/
+updater/output/
+updater/approved.local.json
+*.env
+.env*
+__pycache__/
+*.pyc
