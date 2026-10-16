@@ -82,11 +82,10 @@ def check():
         assert "candidates.json" not in html
         assert "item.approval_status === 'approved'" in html
         assert "textContent = item.paragraph" in html
-        assert not (ROOT / "updater" / "output" / "candidates.json").exists(), (
-            "현재 체크아웃에서 후보 파일이 보이면 공개 경로 노출 여부를 확인하세요."
-        )
+        tracked = subprocess.run(["git", "ls-files", "--", "updater/output/candidates.json"], cwd=ROOT, check=True, capture_output=True, text=True)
+        assert not tracked.stdout.strip(), "승인 전 후보가 Git 추적 파일입니다."
         print("PASS: 공개 화면은 승인 JSON만 읽고 승인 상태를 검증")
-        print("PASS: 검토용 후보 파일을 저장소에 게시하지 않음")
+        print("PASS: 승인 전 후보는 Git 추적 대상이 아님")
 
 
 if __name__ == "__main__":
