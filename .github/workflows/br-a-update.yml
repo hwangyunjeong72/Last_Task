@@ -57,6 +57,9 @@ jobs:
       - name: 승인 게이트 및 재현성 검사
         run: python updater/test_approval.py
 
+      - name: 공개 사이트 연결 및 승인 상태 검증
+        run: python updater/test_site.py
+
       - name: 승인 결과 JSON 내려받기
         uses: actions/upload-artifact@v4
         with:
