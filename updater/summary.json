@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "source_period": {
+    "first_date": "2026-08-11",
+    "last_date": "2026-10-14"
+  },
+  "ritual": {
+    "recorded_dates": 42,
+    "evaluated_dates": 41,
+    "completed": 9,
+    "partially_completed": 31,
+    "not_completed": 1,
+    "unevaluated": 1,
+    "source": "updater/input/ritual.csv"
+  },
+  "tasks": {
+    "listed": 11,
+    "completed": 1,
+    "in_progress": 0,
+    "planned": 0,
+    "unverified": 10,
+    "source": "updater/input/tasks.csv"
+  },
+  "attendance": {
+    "recorded_dates": 42,
+    "confirmed_dates": 41,
+    "present": 41,
+    "official_leave": 0,
+    "absent": 0,
+    "unconfirmed": 1,
+    "confirmed_rate_percent": 100,
+    "all_recorded_rate_percent": 97.6,
+    "rate_note": "확정 출석률은 미확정일을 제외한 확정일 기준. 전체 기록 기준 출석률은 미확정일도 분모에 포함.",
+    "source": "updater/input/attendance.csv"
+  },
+  "publication": "공개용 집계만 포함. 개인적인 원문/제3자 정보는 포함하지 않음."
+}
