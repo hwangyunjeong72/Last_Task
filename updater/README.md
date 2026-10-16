@@ -71,3 +71,34 @@ Python 명령을 못 찾으면 Windows에서는 `py --version`, `py update.py`, 
 
 ## 다음 단계
 3단계: 날짜·출처가 있는 능력별 문단 후보 생성, 4단계: 사람 승인 후에만 게시, 5단계: 사이트 표시.
+
+## 3단계: 능력별 문단 후보 생성 (GitHub에서 실행)
+
+기존의 **BR-A 자동 갱신 실행** 버튼을 사용합니다.
+
+1. 저장소 [Actions](https://github.com/hwangyunjeong72/Last_Task/actions) → `BR-A 자동 갱신 실행`.
+2. `Run workflow` → `main` → `Run workflow`.
+3. 초록색 체크가 표시되면 해당 실행을 엽니다.
+4. `Artifacts`에서 `br-a-candidates-review` 압축파일을 받습니다.
+5. 압축을 풀어 `candidates.json`을 열고 날짜·근거·문단 내용을 검토합니다.
+
+GitHub 서버가 `update.py`와 `test.py`를 실행한 뒤 `generate_candidates.py`와 `test_candidates.py`를 실행합니다.
+**후보 파일은 `updater/output/candidates.json`에만 생성하며 공개 사이트나 GitHub 커밋에는 자동 게시하지 않습니다.**
+초기 CSV는 42일 중 날짜·능력·행동 요약이 실제 입력된 4개 날짜만 후보로 만듭니다. 나머지 빈 행동·미분류 날짜는 문장을 추측해 만들어 내지 않습니다.
+
+### 후보 JSON 필드
+- `id`: 동일한 근거와 문장에는 동일한 식별자
+- `ability`: 자기조절력 / 대인관계력 / 자기동기력
+- `date`: 리추얼 날짜
+- `paragraph`: 입력된 행동만으로 작성한 문장
+- `evidence`: CSV의 출처, 행동, 평가
+- `approval_status`: 무조건 `pending` (승인 대기)
+
+**중요:** `Artifacts`의 후보 ZIP은 검토용입니다. 승인 버튼이나 게시 기능은 4단계 이후에 추가합니다. GitHub Actions 아티팩트는 저장소 접근 권한이 있는 사람에게 노출될 수 있으므로, 민감한 내용은 CSV에 넣지 마세요. 기존 공개 원본 리추얼 자료는 별도 보호 조치가 필요합니다.
+
+로컬 Python이 있는 다른 컴퓨터에서는 다음을 실행할 수 있습니다.
+```bash
+python updater/generate_candidates.py
+python updater/test_candidates.py
+```
+
