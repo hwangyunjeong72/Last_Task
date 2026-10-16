@@ -1,0 +1,52 @@
+name: BR-A 자동 갱신 실행
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: br-a-update-main
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: CSV 집계 및 동일 결과 검사
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 가져오기
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Python 설치 (GitHub 서버에서만)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 숫자 자동 갱신
+        run: python updater/update.py
+
+      - name: 동일 결과 및 출처 검증
+        run: python updater/test.py
+
+      - name: 갱신 결과 파일 저장 (검토용 다운로드)
+        uses: actions/upload-artifact@v4
+        with:
+          name: br-a-summary
+          path: updater/summary.json
+          retention-days: 30
+
+      - name: 공개용 숫자 JSON만 GitHub에 반영
+        shell: bash
+        run: |
+          if git diff --quiet -- updater/summary.json; then
+            echo "변경된 숫자가 없습니다. 커밋 생략."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- updater/summary.json
+          git commit -m "BR-A: refresh approved public statistics"
+          git push
