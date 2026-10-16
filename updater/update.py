@@ -65,6 +65,10 @@ def summarize(input_dir):
     accepted = ac["출석"] + ac["공가"]
     rate = round(100 * accepted / confirmed, 1) if confirmed else None
     enrolled_rate = round(100 * accepted / len(attendance), 1) if attendance else None
+    if rate is not None and rate.is_integer():
+        rate = int(rate)
+    if enrolled_rate is not None and enrolled_rate.is_integer():
+        enrolled_rate = int(enrolled_rate)
 
     return {
         "schema_version": 1,
