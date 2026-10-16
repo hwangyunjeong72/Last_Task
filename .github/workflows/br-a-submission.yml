@@ -1,0 +1,58 @@
+name: BR-A 제출 ZIP 만들기
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: 검증 후 제출 ZIP 생성
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 가져오기
+        uses: actions/checkout@v4
+
+      - name: GitHub 서버에 Python 준비
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 최신 숫자 및 승인 문단 다시 계산
+        run: |
+          python updater/update.py
+          python updater/generate_candidates.py
+          python updater/approve_candidates.py
+
+      - name: 기존 결과 및 재현성 검사와 증거 저장
+        shell: bash
+        run: |
+          mkdir -p updater/output
+          {
+            echo "BR-A 자동 갱신 장치 검증 증거"
+            echo "검증 대상 커밋: $GITHUB_SHA"
+            echo "실행 주소: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo "날짜 표기는 실행 메타정보이며 생성 JSON에는 사용하지 않음"
+            echo "===== 숫자 검사 ====="
+            python updater/test.py
+            echo "===== 후보 검사 ====="
+            python updater/test_candidates.py
+            echo "===== 승인 게이트 ====="
+            python updater/test_approval.py
+            echo "===== 사이트 연결 ====="
+            python updater/test_site.py
+            echo "===== SHA-256 / 새 폴더 / 미승인 차단 ====="
+            python updater/test_reproducibility.py
+          } | tee updater/output/verification.txt
+
+      - name: 제출 ZIP 제작 및 내부 무결성 검사
+        run: python updater/package_submission.py
+
+      - name: 최종 제출 ZIP 다운로드 가능하게 저장
+        uses: actions/upload-artifact@v4
+        with:
+          name: BR-A-최종제출-ZIP
+          path: BR-A_자동갱신장치_제출.zip
+          if-no-files-found: error
+          retention-days: 30
