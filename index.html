@@ -470,7 +470,7 @@ footer {
   // 데이터를 읽지 못해도 기존 수동 작성 페이지는 그대로 유지한다.
   const stat = (panel, index, value) => {
     const node = document.querySelectorAll('#' + panel + ' .growth-stats .growth-stat strong')[index];
-    if (node && Number.isFinite(value)) node.textContent = String(value);
+    if (node && typeof value === "string" && /^(?:\\d+(?:\\.\\d+)?)(?:일|개|%)$/.test(value)) node.textContent = value;
   };
   async function loadGrowthData() {
     let summary;
