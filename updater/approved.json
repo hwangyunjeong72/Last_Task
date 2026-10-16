@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "publication_status": "reviewed_approved_only",
+  "counts": {
+    "all_candidates": 4,
+    "approved": 4,
+    "rejected": 0,
+    "pending_in_review": 0,
+    "not_reviewed": 0
+  },
+  "approved": [
+    {
+      "id": "ritual-dad94fdcf055",
+      "ability": "대인관계력",
+      "date": "2026-08-13",
+      "paragraph": "2026-08-13에는 조별활동에서 상대방 의견 경청과 조율을 연습함.",
+      "evidence": {
+        "source": "리추얼 원본 2026-08-13",
+        "action": "조별활동에서 상대방 의견 경청과 조율을 연습함",
+        "evaluation": "일부 실천했다"
+      },
+      "approval_status": "approved"
+    },
+    {
+      "id": "ritual-6533cb0651c9",
+      "ability": "자기동기력",
+      "date": "2026-10-12",
+      "paragraph": "2026-10-12에는 10번 연구 논문 과제를 마쳤다고 기록함.",
+      "evidence": {
+        "source": "리추얼 원본 2026-10-12",
+        "action": "10번 연구 논문 과제를 마쳤다고 기록함",
+        "evaluation": "일부 실천했다"
+      },
+      "approval_status": "approved"
+    },
+    {
+      "id": "ritual-6481b7c57f56",
+      "ability": "자기조절력",
+      "date": "2026-09-08",
+      "paragraph": "2026-09-08에는 CentOS 실습의 어려움을 기록하고 보완점을 확인함.",
+      "evidence": {
+        "source": "리추얼 원본 2026-09-08",
+        "action": "CentOS 실습의 어려움을 기록하고 보완점을 확인함",
+        "evaluation": "못 했다"
+      },
+      "approval_status": "approved"
+    },
+    {
+      "id": "ritual-3f18a3fcb045",
+      "ability": "자기조절력",
+      "date": "2026-09-16",
+      "paragraph": "2026-09-16에는 실습을 복습하고 오류를 점검하며 학습과 휴식을 계획함.",
+      "evidence": {
+        "source": "리추얼 원본 2026-09-16",
+        "action": "실습을 복습하고 오류를 점검하며 학습과 휴식을 계획함",
+        "evaluation": "일부 실천했다"
+      },
+      "approval_status": "approved"
+    }
+  ]
+}
