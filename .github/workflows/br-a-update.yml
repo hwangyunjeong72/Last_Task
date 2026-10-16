@@ -60,6 +60,9 @@ jobs:
       - name: 공개 사이트 연결 및 승인 상태 검증
         run: python updater/test_site.py
 
+      - name: 6단계 SHA-256 · 새 작업 폴더 · 미승인 차단 검사
+        run: python updater/test_reproducibility.py
+
       - name: 승인 결과 JSON 내려받기
         uses: actions/upload-artifact@v4
         with:
